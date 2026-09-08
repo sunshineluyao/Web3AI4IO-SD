@@ -1,3 +1,39 @@
 # Template validation receipt
 
-Validation is in progress on the template branch. See the final main commit receipt for executed checks. Included data revision: synthetic-v1. No empirical scientific validation, hosted Colab session, hosted CI run, or Hugging Face publication has been performed.
+Validation date: 2026-09-08. This receipt concerns the SYNTHETIC teaching scaffold, not an empirical dataset or journal submission.
+
+| Item | Recorded evidence |
+|---|---|
+| Repository | https://github.com/sunshineluyao/Web3AI4IO-SD |
+| Executed immutable pipeline commit | `083a64fc56aadfc44a32a77a0109311a24b15eea` |
+| Public data location and revision | Bundled `data/` at that commit; `synthetic-v1` |
+| Release mechanism | Reviewed template branch merged through a pull request; the final main SHA is recorded by its merge commit |
+| Code / fixture license | Existing MIT license; original Global Nomad Nexus notice preserved |
+| Reference file | `tests/reference/outputs.json` |
+| Reference SHA-256 | `260b6e409928bd2078ba98f635b67785a89653dee8a5d54bff54465ebebe99f9` |
+| Pipeline runtime | Python 3.12.13, Linux CPU, standard library |
+| Repository checks | 136 files; 3 notebooks; 43 code cells; Python syntax, notebook structure, local file links, result paths and SVG structure passed |
+| Pipeline and negative-path tests | 19 tests passed; 0 failures; 0 skips |
+| Full teaching reproduction | All three tracks reproduced their governed output hashes |
+| Notebook execution | 43/43 code cells executed locally, each tutorial starting from its pinned public GitHub clone; receipts parsed and ZIP files checked |
+| Visual check | Editable SVG rendered and inspected; no embedded raster, script or foreignObject |
+| Packaging | Synthetic Hugging Face allowlist and package hashes checked; existing output destination rejected |
+| Source scan | No credential-pattern or stale workspace/project-reference findings in the 136 tracked artifacts |
+| Hosted GitHub Actions | Not executed; a manually triggered workflow is supplied with pinned action commits |
+| Hosted Google Colab | Not executed in the hosted service; notebook code executed locally using the pinned public checkout |
+| Scientific validation | Not established; requires actual sources, reviewed labels/links, error estimates and study-specific evidence |
+| Empirical/Hugging Face/Croissant release | Not performed; dataset card and responsible-AI worksheets are author templates |
+| Tag / GitHub Release | Not requested or created |
+
+## Commands used
+
+```bash
+python3 scripts/check_repository.py
+python3 -m unittest discover -s tests -v
+python3 scripts/run_demo.py --track all
+python3 scripts/check_notebooks.py --public-clone
+```
+
+The main empirical risks remain source completeness and permissions, measurement validity, matching error, selection among linked records, time/revision provenance and supported reuse. The template records these as author work. No model is trained and no empirical causal effect is claimed; model-training/theorem-specific checks do not apply to this teaching release.
+
+The notebook downloads are intentionally unexecuted student copies. The public-clone execution above ran their code without modifying those distributable files. After later pipeline changes, update the immutable notebook code pin only after checking the new version. The source code at the pinned commit is sufficient to reproduce the fixtures even though notebook pins and this receipt were finalized in a subsequent documentation commit.
