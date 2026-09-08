@@ -1,8 +1,10 @@
 """Create an explicit SYNTHETIC package locally. This script never uploads."""
 from pathlib import Path
-import argparse, hashlib, json, shutil
+import argparse, hashlib, json, shutil, sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT/'code/shared'))
+from pipeline import read_json, verify
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
@@ -26,6 +28,15 @@ def main():
     for rel in files.values():
         if not (ROOT/rel).is_file():
             raise SystemExit(f'Missing approved package input: {rel}')
+    # Verify archived data against the frozen release before generating new hashes.
+    references = read_json(ROOT/'tests/reference/outputs.json')
+    for track, track_references in references.items():
+        for name, expected in track_references.items():
+            if name.startswith('processed_data/'):
+                verify(ROOT/'data'/track/'processed_data/demo'/Path(name).name, expected)
+    integration_inputs = read_json(ROOT/'metadata/integration_source_manifest.json')
+    crosswalk = next(f for f in integration_inputs['files'] if f['filename']=='crosswalk.csv')
+    verify(ROOT/crosswalk['path'], crosswalk['sha256'])
     dest.mkdir(parents=True)
     for name, rel in files.items():
         shutil.copyfile(ROOT/rel,dest/name)

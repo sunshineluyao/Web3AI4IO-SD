@@ -13,11 +13,11 @@ Validation date: 2026-09-08. This receipt concerns the SYNTHETIC teaching scaffo
 | Reference SHA-256 | `260b6e409928bd2078ba98f635b67785a89653dee8a5d54bff54465ebebe99f9` |
 | Pipeline runtime | Python 3.12.13, Linux CPU, standard library |
 | Repository checks | 136 files; 3 notebooks; 43 code cells; Python syntax, notebook structure, local file links, result paths and SVG structure passed |
-| Pipeline and negative-path tests | 19 tests passed; 0 failures; 0 skips |
+| Pipeline and negative-path tests | 20 tests passed; 0 failures; 0 skips |
 | Full teaching reproduction | All three tracks reproduced their governed output hashes |
 | Notebook execution | 43/43 code cells executed locally, each tutorial starting from its pinned public GitHub clone; receipts parsed and ZIP files checked |
 | Visual check | Editable SVG rendered and inspected; no embedded raster, script or foreignObject |
-| Packaging | Synthetic Hugging Face allowlist and package hashes checked; existing output destination rejected |
+| Packaging | Synthetic Hugging Face allowlist and package hashes checked; corrupted archives and existing output destinations rejected |
 | Source scan | No credential-pattern or stale workspace/project-reference findings in the 136 tracked artifacts |
 | Hosted GitHub Actions | Not executed; a manually triggered workflow is supplied with pinned action commits |
 | Hosted Google Colab | Not executed in the hosted service; notebook code executed locally using the pinned public checkout |

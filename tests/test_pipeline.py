@@ -1,5 +1,5 @@
 from pathlib import Path
-import copy, json, subprocess, sys, tempfile, unittest
+import copy, json, shutil, subprocess, sys, tempfile, unittest
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'code/shared'))
@@ -125,5 +125,16 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(set(manifest['files']),{'on_chain.csv','off_chain.csv','integration.csv','crosswalk.csv','unmatched_events.csv','unused_off_chain.csv','data_dictionary.csv','field_provenance.csv','LICENSE','README.md'})
         for filename,expected in manifest['files'].items():self.assertEqual(p.sha(dest/filename),expected)
         self.assertNotEqual(subprocess.run(cmd,capture_output=True).returncode,0)
+
+    def test_hf_packaging_rejects_corrupted_archive(self):
+        isolated=self.base/'repo'
+        shutil.copytree(ROOT,isolated,ignore=shutil.ignore_patterns('.git','outputs','dist','__pycache__'))
+        path=isolated/'data/on_chain/processed_data/demo/events.csv'
+        path.write_bytes(path.read_bytes()+b'\n')
+        dest=self.base/'corrupt-package'
+        result=subprocess.run([sys.executable,str(isolated/'scripts/prepare_hf.py'),'--demo','--output',str(dest)],capture_output=True,text=True)
+        self.assertNotEqual(result.returncode,0)
+        self.assertIn('Checksum mismatch',result.stderr)
+        self.assertFalse(dest.exists())
 
 if __name__=='__main__':unittest.main()
