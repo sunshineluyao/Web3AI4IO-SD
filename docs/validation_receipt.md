@@ -13,7 +13,8 @@ Validation date: 2026-09-08. This receipt concerns the SYNTHETIC teaching scaffo
 | Reference SHA-256 | `260b6e409928bd2078ba98f635b67785a89653dee8a5d54bff54465ebebe99f9` |
 | Pipeline runtime | Python 3.12.13, Linux CPU, standard library |
 | Repository checks | 136 files; 3 notebooks; 43 code cells; Python syntax, notebook structure, local file links, result paths and SVG structure passed |
-| Pipeline and negative-path tests | 20 tests passed; 0 failures; 0 skips |
+| Pipeline and negative-path tests | 21 tests passed; 0 failures; 0 skips |
+| Optimized Python validation | Explicit checks remain active under `python -O`; both validation commands and a negative-path regression passed |
 | Full teaching reproduction | All three tracks reproduced their governed output hashes |
 | Notebook execution | 43/43 code cells executed locally, each tutorial starting from its pinned public GitHub clone; receipts parsed and ZIP files checked |
 | Visual check | Editable SVG rendered and inspected; no embedded raster, script or foreignObject |

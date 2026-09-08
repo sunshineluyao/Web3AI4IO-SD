@@ -1,5 +1,5 @@
 from pathlib import Path
-import copy, json, shutil, subprocess, sys, tempfile, unittest
+import copy, shutil, subprocess, sys, tempfile, unittest
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'code/shared'))
@@ -136,5 +136,12 @@ class PipelineTests(unittest.TestCase):
         self.assertNotEqual(result.returncode,0)
         self.assertIn('Checksum mismatch',result.stderr)
         self.assertFalse(dest.exists())
+
+    def test_validation_checks_survive_python_optimization(self):
+        for module in ('check_repository','check_notebooks'):
+            command = f"import sys; sys.path.insert(0, {str(ROOT/'scripts')!r}); from {module} import require; require(False, 'intentional validation failure')"
+            result = subprocess.run([sys.executable,'-O','-c',command],capture_output=True,text=True)
+            self.assertNotEqual(result.returncode,0)
+            self.assertIn('intentional validation failure',result.stderr)
 
 if __name__=='__main__':unittest.main()
